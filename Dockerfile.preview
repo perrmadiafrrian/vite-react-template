@@ -1,0 +1,8 @@
+FROM nginx:1-alpine
+
+COPY .docker/local-cert/* /etc/nginx/
+
+RUN sed -i "17i\    add_header Access-Control-Allow-Origin *;" /etc/nginx/nginx.conf
+RUN sed -i "2i\    listen 443 ssl;" /etc/nginx/conf.d/default.conf
+RUN sed -i "4i\    ssl_certificate local.pem;" /etc/nginx/conf.d/default.conf
+RUN sed -i "5i\    ssl_certificate_key local-key.pem;" /etc/nginx/conf.d/default.conf
